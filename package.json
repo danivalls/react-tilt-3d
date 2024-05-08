@@ -9,6 +9,10 @@
   "files": [
     "/dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danivalls/react-tilt-3d.git"
+  },
   "scripts": {
     "prepare": "npm run build",
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
