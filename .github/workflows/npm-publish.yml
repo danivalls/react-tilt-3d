@@ -38,8 +38,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: v${{ github.ref }}
+          release_name: v${{ github.ref }}
           body: |
             https://www.npmjs.com/package/react-tilt-3d/v/${{ github.ref }}
           draft: false
