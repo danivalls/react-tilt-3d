@@ -6,7 +6,7 @@
 
 ### 📦 Installation
 
-`npm i react-tilt-3d`
+`npm i react-tilt-3d`<br/>
 `yarn add react-tilt-3d`
 
 ### ✨ Usage
