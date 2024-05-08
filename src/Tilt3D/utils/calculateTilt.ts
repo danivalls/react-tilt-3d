@@ -4,8 +4,12 @@ const calculateTiltOnAxis = (
   axis: 'x' | 'y',
   position: number,
   domNode: HTMLElement,
-  options: Required<Pick<CalculateTiltOptions, 'maxTilt' | 'offset'>>
+  options: Required<Pick<CalculateTiltOptions, 'maxTilt' | 'offset'>> & {
+    lockAxis: boolean;
+  }
 ) => {
+  if (options.lockAxis) return 0;
+
   const { maxTilt, offset } = options;
   const { top, left } = getCoords(domNode);
 
@@ -69,6 +73,8 @@ const calculateTilt = (
     resetTiltOnOutOfBounds = false,
     offset = window.innerWidth / 2,
     resetTiltOnHover = false,
+    lockAxisX = false,
+    lockAxisY = false,
   } = options;
 
   const isHovering = getIsHovering(cursorPos, getCoords(domNode), domNode);
@@ -76,8 +82,14 @@ const calculateTilt = (
 
   const axisOptions = { maxTilt, offset };
 
-  const tiltX = calculateTiltOnAxis('x', cursorPos.x, domNode, axisOptions);
-  const tiltY = calculateTiltOnAxis('y', cursorPos.y, domNode, axisOptions);
+  const tiltX = calculateTiltOnAxis('x', cursorPos.x, domNode, {
+    ...axisOptions,
+    lockAxis: lockAxisX,
+  });
+  const tiltY = calculateTiltOnAxis('y', cursorPos.y, domNode, {
+    ...axisOptions,
+    lockAxis: lockAxisY,
+  });
 
   let limitedX: number;
   let limitedY: number;

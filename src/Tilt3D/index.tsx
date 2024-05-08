@@ -10,6 +10,8 @@ const Tilt3D = ({
   actionOffset,
   zoomOnTilt = false,
   zoomScale = 1.25,
+  lockAxisX = false,
+  lockAxisY = false,
   className,
   children,
 }: Props) => {
@@ -33,6 +35,8 @@ const Tilt3D = ({
           offset: actionOffset,
           resetTiltOnHover,
           resetTiltOnOutOfBounds,
+          lockAxisX,
+          lockAxisY,
         });
 
         ref.current.style.cssText = generateStyleText(
@@ -66,6 +70,8 @@ const Tilt3D = ({
       document.removeEventListener('mouseleave', resetTilt);
     };
   }, [
+    lockAxisX,
+    lockAxisY,
     maxTilt,
     resetTiltOnOutOfBounds,
     resetTiltOnHover,

@@ -17,6 +17,8 @@ export type Props = {
   className?: string;
   zoomOnTilt?: boolean;
   zoomScale?: number;
+  lockAxisX?: boolean;
+  lockAxisY?: boolean;
 };
 
 export type CalculateTiltOptions = {
@@ -24,6 +26,8 @@ export type CalculateTiltOptions = {
   resetTiltOnOutOfBounds?: boolean;
   resetTiltOnHover?: boolean;
   offset?: number;
+  lockAxisX?: boolean;
+  lockAxisY?: boolean;
 };
 
 export type Coords = {
