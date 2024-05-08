@@ -1,5 +1,5 @@
 {
-  "name": "@danivalls/react-tilt-3d",
+  "name": "react-tilt-3d",
   "version": "0.1.0",
   "description": "",
   "type": "module",
@@ -9,10 +9,8 @@
   "files": [
     "/dist"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@danivalls"
-  },
   "scripts": {
+    "prepare": "npm run build",
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "lint": "eslint . --ext .ts,.tsx --ignore-path .gitignore --fix",
     "build": "tsc && vite build"
