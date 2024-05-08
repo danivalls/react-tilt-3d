@@ -32,15 +32,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Get package.json version
+        id: get-version
+        uses: beaconbrigade/package-json-version@v0.3
+        with:
+          path: .
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ github.ref }}
-          release_name: v${{ github.ref }}
+          tag_name: ${{ steps.get-version.outputs.version }}
+          release_name: ${{ steps.get-version.outputs.version }}
           body: |
-            https://www.npmjs.com/package/react-tilt-3d/v/${{ github.ref }}
+            https://www.npmjs.com/package/react-tilt-3d/v/${{ steps.get-version.outputs.version }}
           draft: false
           prerelease: false
