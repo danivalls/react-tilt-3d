@@ -48,5 +48,6 @@ jobs:
           release_name: ${{ steps.get-version.outputs.version }}
           body: |
             https://www.npmjs.com/package/react-tilt-3d/v/${{ steps.get-version.outputs.version }}
+            `npm i react-tilt-3d@${{ steps.get-version.outputs.version }}`
           draft: false
           prerelease: false
