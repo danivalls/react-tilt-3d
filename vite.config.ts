@@ -15,6 +15,7 @@ export default defineConfig({
     },
     sourcemap: true,
     emptyOutDir: true,
+    minify: 'terser',
   },
   plugins: [dts()],
 });

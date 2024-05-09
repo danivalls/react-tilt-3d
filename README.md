@@ -2,10 +2,10 @@
 
 ![Typed](https://img.shields.io/badge/Typed-blue?style=flat&logo=TypeScript&logoColor=white) [![npm version](https://badge.fury.io/js/react-tilt-3d.svg)](https://badge.fury.io/js/react-tilt-3d)
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/danivalls/react-tilt-3d/master/assets/demogif.gif?raw=true" />
-</p>
----
+<div style="display: flex; flex-direction: column; align-items: center;">
+  <img src="https://raw.githubusercontent.com/danivalls/react-tilt-3d/master/assets/demogif.gif?raw=true" />
+  <i style="font-size: 12px;">(Image card in example is a creation from <a href="https://www.reddit.com/r/mpcproxies/comments/ydtuxu/hello_everyone_i_just_made_a_complete_fully_dark/">@mpcproxies</a> user on reddit)</i>
+</div>
 
 ### 🚀 Features
 
@@ -19,6 +19,7 @@
   - Customize the action radius
 - Compatible with touch devices
 - Apply the tilt effect to anything used as children.
+- Applies a lighting effect to reinforce the 3d-effect.
 - Strongly typed
 
 ### 📦 Installation
