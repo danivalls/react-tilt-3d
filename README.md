@@ -1,4 +1,5 @@
 # react-tilt-3d
+
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
 
 <p align="center">
@@ -7,7 +8,6 @@
   <p align="center">
   <i style="font-size: 8px; text-align:center; width: 100%; display: inline-block;">(Image card in example is a creation from <a href="https://www.reddit.com/r/mpcproxies/comments/ydtuxu/hello_everyone_i_just_made_a_complete_fully_dark/">@mpcproxies</a> user on reddit)</i>
 </p>
-  
 
 ### 🚀 Features
 
@@ -23,6 +23,7 @@
 - Apply the tilt effect to anything used as children.
 - Applies a lighting effect to reinforce the 3d-effect.
 - Strongly typed
+- Experiment as much as you want with the [demo page](https://danivalls.github.io/react-tilt-3d/)
 
 ### 📦 Installation
 

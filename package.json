@@ -1,6 +1,6 @@
 {
   "name": "react-tilt-3d",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "",
   "type": "module",
   "main": "dist/index.cjs.js",
@@ -19,8 +19,8 @@
     "lint": "eslint . --ext .ts,.tsx --ignore-path .gitignore --fix",
     "build": "tsc && vite build",
     "build:watch": "tsc -w & vite build --watch",
-    "predeploydocs": "npm run prepare && cd demo && npm i && npm run build",
-    "deploydocs": "gh-pages -d demo/dist"
+    "predeploy": "npm run prepare && cd demo && npm i && npm run build",
+    "deploydemo": "gh-pages -d demo/dist"
   },
   "keywords": [],
   "author": "",

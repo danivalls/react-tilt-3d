@@ -58,7 +58,7 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
         />
       </label>
       <label>
-        Max tilt: {maxTilt}
+        Max tilt: <code>{maxTilt}</code>
         <input
           type="range"
           min={0}
@@ -68,7 +68,7 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
         />
       </label>
       <label>
-        Action offset: {actionOffset}
+        Action offset: <code>{actionOffset}</code>
         <input
           type="range"
           min={0}
@@ -80,7 +80,7 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
         />
       </label>
       <label>
-        Zoom scale: {zoomScale}
+        Zoom scale: <code>{zoomScale}</code>
         <input
           disabled={!zoomOnTilt}
           type="range"

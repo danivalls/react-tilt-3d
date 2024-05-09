@@ -37,7 +37,7 @@ function App() {
           lockAxisX={config.lockAxisX}
           lockAxisY={config.lockAxisY}
         >
-          <img src="/democard.png" alt="image" width={150} />
+          <img src="./democard.png" alt="image" width={150} />
         </Tilt3D>
       </div>
     </>
