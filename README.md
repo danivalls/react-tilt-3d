@@ -2,7 +2,24 @@
 
 ![Typed](https://img.shields.io/badge/Typed-blue?style=flat&logo=TypeScript&logoColor=white) [![npm version](https://badge.fury.io/js/react-tilt-3d.svg)](https://badge.fury.io/js/react-tilt-3d)
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/danivalls/react-tilt-3d/master/assets/demogif.gif?raw=true" />
+</p>
 ---
+
+### 🚀 Features
+
+- Highly customizable component via props:
+  - Scale when tilting
+  - Stop tilting when cursor leaves window
+  - Stop tilting when cursor distance from object exceeds limit
+  - Stop tilting when cursor hovers the object
+  - Tilt in all axis or only in one (x or y)
+  - Customize how much you want it to tilt
+  - Customize the action radius
+- Compatible with touch devices
+- Apply the tilt effect to anything used as children.
+- Strongly typed
 
 ### 📦 Installation
 
