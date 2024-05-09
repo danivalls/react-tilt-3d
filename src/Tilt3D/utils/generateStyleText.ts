@@ -2,9 +2,9 @@ import { Tilt } from '../types';
 
 const generateStyleText = (
   tilt: Tilt,
-  maxTilt: number,
-  zoomOnTilt: boolean,
-  zoomScale: number
+  maxTilt: number = 0,
+  zoomOnTilt: boolean = false,
+  zoomScale: number = 1
 ) => {
   const brightness = tilt.y / maxTilt + 1;
   const translateValue = Math.max(Math.abs(tilt.x), Math.abs(tilt.y)) / 2;

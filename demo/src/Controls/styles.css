@@ -1,0 +1,16 @@
+.controls-container {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  z-index: 1;
+  gap: 8px;
+
+  label {
+    display: flex;
+    gap: 8px;
+  }
+}

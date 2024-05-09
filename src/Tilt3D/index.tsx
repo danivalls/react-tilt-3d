@@ -20,11 +20,7 @@ const Tilt3D = ({
   useEffect(() => {
     const resetTilt = () => {
       if (ref.current) {
-        ref.current.style.cssText = `
-        filter: brightness(1);
-        transform: perspective(10cm) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1);
-        transition: all 0.25s cubic-bezier(.32,.66,.72,1.58);
-        `;
+        ref.current.style.cssText = generateStyleText({ x: 0, y: 0 });
       }
     };
 

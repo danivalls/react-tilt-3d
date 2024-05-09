@@ -17,7 +17,10 @@
     "prepare": "npm run build",
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "lint": "eslint . --ext .ts,.tsx --ignore-path .gitignore --fix",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "build:watch": "tsc -w & vite build --watch",
+    "predeploydocs": "npm run prepare && cd demo && npm i && npm run build",
+    "deploydocs": "gh-pages -d demo/dist"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +38,7 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-storybook": "^0.8.0",
+    "gh-pages": "^2.2.0",
     "prettier": "^3.2.5",
     "terser": "^5.31.0",
     "typescript": "^5.4.5",
