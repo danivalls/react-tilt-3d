@@ -1,11 +1,13 @@
 # react-tilt-3d
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
 
-![Typed](https://img.shields.io/badge/Typed-blue?style=flat&logo=TypeScript&logoColor=white) [![npm version](https://badge.fury.io/js/react-tilt-3d.svg)](https://badge.fury.io/js/react-tilt-3d)
-
-<div style="display: flex; flex-direction: column; align-items: center;">
+<p align="center">
   <img src="https://raw.githubusercontent.com/danivalls/react-tilt-3d/master/assets/demogif.gif?raw=true" />
-  <i style="font-size: 12px;">(Image card in example is a creation from <a href="https://www.reddit.com/r/mpcproxies/comments/ydtuxu/hello_everyone_i_just_made_a_complete_fully_dark/">@mpcproxies</a> user on reddit)</i>
-</div>
+</p>
+  <p align="center">
+  <i style="font-size: 8px; text-align:center; width: 100%; display: inline-block;">(Image card in example is a creation from <a href="https://www.reddit.com/r/mpcproxies/comments/ydtuxu/hello_everyone_i_just_made_a_complete_fully_dark/">@mpcproxies</a> user on reddit)</i>
+</p>
+  
 
 ### 🚀 Features
 
