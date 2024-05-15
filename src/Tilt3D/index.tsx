@@ -3,6 +3,23 @@ import { CursorPos, Props } from './types';
 import calculateTilt from './utils/calculateTilt';
 import generateStyleText from './utils/generateStyleText';
 
+/**
+ * A 3D tilt effect component that follows the cursor or touch movement.
+ *
+ * @component
+ * @param {object} props - The component props.
+ * @param {number} [props.maxTilt=45] - The maximum tilt angle in degrees.
+ * @param {boolean} [props.resetTiltOnOutOfBounds] - Whether to reset the tilt when the cursor moves out of bounds.
+ * @param {boolean} [props.resetTiltOnHover] - Whether to reset the tilt when the cursor hovers over the component.
+ * @param {number} [props.actionOffset] - The offset in pixels from the center of the component where the tilt action starts.
+ * @param {boolean} [props.zoomOnTilt=false] - Whether to zoom in on the component when tilting.
+ * @param {number} [props.zoomScale=1.25] - The scale factor for zooming in on the component.
+ * @param {boolean} [props.lockAxisX=false] - Whether to lock the tilt movement to the X-axis.
+ * @param {boolean} [props.lockAxisY=false] - Whether to lock the tilt movement to the Y-axis.
+ * @param {string} [props.className] - The CSS class name for the wrapper.
+ * @param {ReactNode} props.children - The child elements to render.
+ * @returns {JSX.Element} The rendered Tilt3D component.
+ */
 const Tilt3D = ({
   maxTilt = 45,
   resetTiltOnOutOfBounds,
