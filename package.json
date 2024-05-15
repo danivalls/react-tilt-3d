@@ -21,7 +21,7 @@
     "lint": "eslint . --ext .ts,.tsx --ignore-path .gitignore --fix",
     "build": "tsc && vite build",
     "build:watch": "tsc -w & vite build --watch",
-    "predeploy": "npm run prepare && cd demo && npm i && npm run build",
+    "predeploy": "npm run prepare && cd demo && npm ci && npm run build",
     "deploydemo": "gh-pages -d demo/dist"
   },
   "keywords": [],

@@ -4,6 +4,8 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { peerDependencies } from './package.json';
 
+const testFiles = ['**/*.test.ts', '**/*.test.tsx'];
+
 export default defineConfig({
   build: {
     lib: {
@@ -20,9 +22,9 @@ export default defineConfig({
     minify: 'terser',
   },
   test: {
-    include: ['**/*.test.ts', '**/*.test.tsx'],
+    include: testFiles,
     environment: 'jsdom',
     globals: true,
   },
-  plugins: [dts({ exclude: ['**/*.test.ts', '**/*.test.tsx'] })],
+  plugins: [dts({ exclude: testFiles })],
 });

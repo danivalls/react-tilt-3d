@@ -5,25 +5,7 @@ on:
     types: [opened, edited, labeled, unlabeled, synchronize]
 
 jobs:
-  check-it-builds:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build lib dist
-        run: npm run build
-
   run-tests:
-    needs: check-it-builds
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -40,8 +22,7 @@ jobs:
       - name: Run tests
         run: npm run test
 
-  check-demo-page-builds:
-    needs: run-tests
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -53,7 +34,10 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Build lib
+        run: npm run build
 
       - name: Build demo page
-        run: npm run predeploy
+        run: cd demo && npm ci && npm run build
