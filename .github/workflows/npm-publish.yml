@@ -1,9 +1,8 @@
 name: publish npm
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
   publish:
@@ -19,56 +18,17 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Publish to npm
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
-  gh-release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      - name: Get package.json version
-        id: get-version
-        uses: beaconbrigade/package-json-version@v0.3
-        with:
-          path: .
+      - name: Prepare demo page deploy
+        run: npm run predeploy
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.get-version.outputs.version }}
-          release_name: ${{ steps.get-version.outputs.version }}
-          body: |
-            https://www.npmjs.com/package/react-tilt-3d/v/${{ steps.get-version.outputs.version }}
-            `npm i react-tilt-3d@${{ steps.get-version.outputs.version }}`
-          draft: false
-          prerelease: false
-
-  update-demo-page:
-    name: Update Demo Page
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
-          registry-url: https://registry.npmjs.org/
-
-      - name: Prepare deploy
-        run: npm ci && npm run predeploy
-
-      - name: Deploy
+      - name: Deploy demo page
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
