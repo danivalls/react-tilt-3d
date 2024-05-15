@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { peerDependencies } from './package.json';
@@ -17,5 +19,10 @@ export default defineConfig({
     emptyOutDir: true,
     minify: 'terser',
   },
-  plugins: [dts()],
+  test: {
+    include: ['**/*.test.ts', '**/*.test.tsx'],
+    environment: 'jsdom',
+    globals: true,
+  },
+  plugins: [dts({ exclude: ['**/*.test.ts', '**/*.test.tsx'] })],
 });
