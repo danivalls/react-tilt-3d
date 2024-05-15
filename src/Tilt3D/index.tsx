@@ -20,7 +20,7 @@ const Tilt3D = ({
   useEffect(() => {
     const resetTilt = () => {
       if (ref.current) {
-        ref.current.style.cssText = generateStyleText({ x: 0, y: 0 });
+        ref.current.style.cssText = generateStyleText({ x: 0, y: 0 }, maxTilt);
       }
     };
 

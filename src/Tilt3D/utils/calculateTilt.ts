@@ -1,6 +1,6 @@
 import { CalculateTiltOptions, Coords, CursorPos } from '../types';
 
-const calculateTiltOnAxis = (
+export const calculateTiltOnAxis = (
   axis: 'x' | 'y',
   position: number,
   domNode: HTMLElement,
@@ -29,13 +29,14 @@ const calculateTiltOnAxis = (
   );
 };
 
-const getIsHovering = (
+export const getIsHovering = (
   cursorPos: CursorPos,
   coords: Coords,
   domNode: HTMLElement
 ) => {
   const xCoord = coords.left;
   const yCoord = coords.top;
+
   const isHoveringX =
     cursorPos.x > xCoord && cursorPos.x < xCoord + domNode.offsetWidth;
   const isHoveringY =
@@ -44,7 +45,7 @@ const getIsHovering = (
   return isHoveringX && isHoveringY;
 };
 
-const getCoords = (elem: HTMLElement): Coords => {
+export const getCoords = (elem: HTMLElement): Coords => {
   const box = elem.getBoundingClientRect();
 
   const body = document.body;
