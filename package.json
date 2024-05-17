@@ -1,6 +1,6 @@
 {
   "name": "react-tilt-3d",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "description": "",
   "type": "module",
   "main": "dist/index.cjs.js",

@@ -7,7 +7,7 @@ const INITIAL_VALUES: Config = {
   resetTiltOnOutOfBounds: false,
   resetTiltOnHover: false,
   zoomOnTilt: false,
-  maxTilt: 60,
+  maxTilt: 25,
   actionOffset: 250,
   zoomScale: 1.25,
   lockAxisX: false,
@@ -26,20 +26,18 @@ function App() {
   return (
     <>
       <Controls config={config} setConfig={setConfig} />
-      <div>
-        <Tilt3D
-          maxTilt={config.maxTilt}
-          actionOffset={config.actionOffset}
-          resetTiltOnOutOfBounds={config.resetTiltOnOutOfBounds}
-          resetTiltOnHover={config.resetTiltOnHover}
-          zoomOnTilt={config.zoomOnTilt}
-          zoomScale={config.zoomScale}
-          lockAxisX={config.lockAxisX}
-          lockAxisY={config.lockAxisY}
-        >
-          <img src="./democard.png" alt="image" width={150} />
-        </Tilt3D>
-      </div>
+      <Tilt3D
+        maxTilt={config.maxTilt}
+        actionOffset={config.actionOffset}
+        resetTiltOnOutOfBounds={config.resetTiltOnOutOfBounds}
+        resetTiltOnHover={config.resetTiltOnHover}
+        zoomOnTilt={config.zoomOnTilt}
+        zoomScale={config.zoomScale}
+        lockAxisX={config.lockAxisX}
+        lockAxisY={config.lockAxisY}
+      >
+        <img src="./democard.png" alt="image" width={150} />
+      </Tilt3D>
     </>
   );
 }
