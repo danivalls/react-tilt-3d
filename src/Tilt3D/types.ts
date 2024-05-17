@@ -22,12 +22,12 @@ export type Props = {
 };
 
 export type CalculateTiltOptions = {
-  maxTilt?: number;
+  maxTilt: number;
   resetTiltOnOutOfBounds?: boolean;
   resetTiltOnHover?: boolean;
-  offset?: number;
-  lockAxisX?: boolean;
-  lockAxisY?: boolean;
+  offset: number;
+  lockAxisX: boolean;
+  lockAxisY: boolean;
 };
 
 export type Coords = {

@@ -29,22 +29,6 @@ export const calculateTiltOnAxis = (
   );
 };
 
-export const getIsHovering = (
-  cursorPos: CursorPos,
-  coords: Coords,
-  domNode: HTMLElement
-) => {
-  const xCoord = coords.left;
-  const yCoord = coords.top;
-
-  const isHoveringX =
-    cursorPos.x > xCoord && cursorPos.x < xCoord + domNode.offsetWidth;
-  const isHoveringY =
-    cursorPos.y > yCoord && cursorPos.y < yCoord + domNode.offsetHeight;
-
-  return isHoveringX && isHoveringY;
-};
-
 export const getCoords = (elem: HTMLElement): Coords => {
   const box = elem.getBoundingClientRect();
 
@@ -66,36 +50,31 @@ export const getCoords = (elem: HTMLElement): Coords => {
 const calculateTilt = (
   cursorPos: CursorPos,
   domNode: HTMLElement,
-  options: CalculateTiltOptions = {}
+  options: CalculateTiltOptions
 ) => {
   if (!cursorPos.x && !cursorPos.y) return { x: 0, y: 0 };
-  const {
-    maxTilt = 45,
-    resetTiltOnOutOfBounds = false,
-    offset = window.innerWidth / 2,
-    resetTiltOnHover = false,
-    lockAxisX = false,
-    lockAxisY = false,
-  } = options;
 
-  const isHovering = getIsHovering(cursorPos, getCoords(domNode), domNode);
-  if (resetTiltOnHover && isHovering) return { x: 0, y: 0 };
+  const isHovering = domNode.matches(':hover');
+  if (options.resetTiltOnHover && isHovering) return { x: 0, y: 0 };
 
-  const axisOptions = { maxTilt, offset };
+  const { maxTilt, offset, lockAxisX, lockAxisY } = options;
 
-  const tiltX = calculateTiltOnAxis('x', cursorPos.x, domNode, {
-    ...axisOptions,
-    lockAxis: lockAxisX,
+  const buildAxisOptions = (axis: 'x' | 'y') => ({
+    maxTilt,
+    offset,
+    lockAxis: axis === 'x' ? lockAxisX : lockAxisY,
   });
-  const tiltY = calculateTiltOnAxis('y', cursorPos.y, domNode, {
-    ...axisOptions,
-    lockAxis: lockAxisY,
-  });
+
+  const getTilt = (axis: 'x' | 'y') =>
+    calculateTiltOnAxis(axis, cursorPos[axis], domNode, buildAxisOptions(axis));
+
+  const tiltX = getTilt('x');
+  const tiltY = getTilt('y');
 
   let limitedX: number;
   let limitedY: number;
 
-  if (resetTiltOnOutOfBounds) {
+  if (options.resetTiltOnOutOfBounds) {
     const isOutOfBoundsX = Math.abs(tiltX) > maxTilt;
     const isOutOfBoundsY = Math.abs(tiltY) > maxTilt;
     const isOutOfBounds = isOutOfBoundsX || isOutOfBoundsY;

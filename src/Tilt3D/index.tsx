@@ -21,10 +21,10 @@ import generateStyleText from './utils/generateStyleText';
  * @returns {JSX.Element} The rendered Tilt3D component.
  */
 const Tilt3D = ({
-  maxTilt = 45,
+  maxTilt = 25,
   resetTiltOnOutOfBounds,
   resetTiltOnHover,
-  actionOffset,
+  actionOffset = 0,
   zoomOnTilt = false,
   zoomScale = 1.25,
   lockAxisX = false,
