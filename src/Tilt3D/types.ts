@@ -19,7 +19,7 @@ export type Props = {
   zoomScale?: number;
   lockAxisX?: boolean;
   lockAxisY?: boolean;
-  onTiltChange?: (tilt?: Tilt) => void;
+  onTiltChange?: (tilt: Tilt) => void;
   onTiltStart?: () => void;
   onTiltEnd?: () => void;
 };
