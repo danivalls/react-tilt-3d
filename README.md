@@ -64,6 +64,5 @@ Several customizations can be made via props:
 | `onTiltChange`           | `({x: number, y: number}) => void` | Callback to be executed every time the tilt changes.                                                                                                                                     | `false`  |         |
 | `onTiltStart`            | `() => void`                       | Callback to be executed every time the tilt starts                                                                                                                                       | `false`  |         |
 | `onTiltEnd`              | `() => void`                       | Callback to be executed every time the tilt ends and returns to 0                                                                                                                        | `false`  |         |
-
-| `className` | `string` | classname to apply to the wrapper | `false` | |
-| `children` | `ReactNode` | The content to apply the tilt. | `false` | |
+| `className`              | `string`                           | classname to apply to the wrapper                                                                                                                                                        | `false`  |         |
+| `children`               | `ReactNode`                        | The content to apply the tilt.                                                                                                                                                           | `false`  |         |
