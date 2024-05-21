@@ -21,3 +21,20 @@ body {
   width: 100%;
   min-height: 50vh;
 }
+
+.links {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px;
+}
+
+.links a {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
