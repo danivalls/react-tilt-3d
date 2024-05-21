@@ -96,6 +96,22 @@ function App() {
         >
           <img src="./democard.png" alt="image" width={150} />
         </Tilt3D>
+        <div className="links">
+          <a
+            href="https://www.npmjs.com/package/react-tilt-3d"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img src="./npmjs-logo.svg" alt="image" width={50} />
+          </a>
+          <a
+            href="https://github.com/danivalls/react-tilt-3d"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img src="./gh-logo.svg" alt="image" width={50} />
+          </a>
+        </div>
       </div>
     </>
   );
