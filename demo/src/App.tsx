@@ -1,9 +1,11 @@
-import { useReducer } from 'react';
-import { Config } from './Controls/Controls.types';
+import { useReducer, useState } from 'react';
+import { Config, LoggersOptions } from './Controls/Controls.types';
 import Controls from './Controls';
 import { Tilt3D } from 'react-tilt-3d';
+import EventLogger from './EventLogger';
+import { EventLog } from './EventLogger/EventLogger.types';
 
-const INITIAL_VALUES: Config = {
+const INITIAL_CONFIG: Config = {
   resetTiltOnOutOfBounds: false,
   resetTiltOnHover: false,
   zoomOnTilt: false,
@@ -14,30 +16,87 @@ const INITIAL_VALUES: Config = {
   lockAxisY: false,
 };
 
+const INITIAL_LOGGERS: LoggersOptions = {
+  logOnTiltStart: true,
+  logOnTiltEnd: true,
+  logOnTiltChange: false,
+};
+
 function App() {
   const [config, setConfig] = useReducer(
     (currentConfig: Config, newConfig: Partial<Config>) => ({
       ...currentConfig,
       ...newConfig,
     }),
-    INITIAL_VALUES
+    INITIAL_CONFIG
   );
+
+  const [eventLoggers, setEventLoggers] = useReducer(
+    (currentLoggers: LoggersOptions, newLoggers: Partial<LoggersOptions>) => ({
+      ...currentLoggers,
+      ...newLoggers,
+    }),
+    INITIAL_LOGGERS
+  );
+
+  const [log, setLog] = useState<EventLog[]>([]);
+
+  const handleTiltStart = () => {
+    if (eventLoggers.logOnTiltStart) {
+      setLog((prevLog) => [
+        ...prevLog,
+        { timestamp: Date.now(), type: 'onTiltStart' },
+      ]);
+    }
+  };
+
+  const handleTiltEnd = () => {
+    if (eventLoggers.logOnTiltEnd) {
+      setLog((prevLog) => [
+        ...prevLog,
+        { timestamp: Date.now(), type: 'onTiltEnd' },
+      ]);
+    }
+  };
+
+  const handleTiltChange = (tilt: { x: number; y: number }) => {
+    if (eventLoggers.logOnTiltChange) {
+      setLog((prevLog) => [
+        ...prevLog,
+        { timestamp: Date.now(), type: 'onTiltChange', data: tilt },
+      ]);
+    }
+  };
 
   return (
     <>
       <Controls config={config} setConfig={setConfig} />
-      <Tilt3D
-        maxTilt={config.maxTilt}
-        actionOffset={config.actionOffset}
-        resetTiltOnOutOfBounds={config.resetTiltOnOutOfBounds}
-        resetTiltOnHover={config.resetTiltOnHover}
-        zoomOnTilt={config.zoomOnTilt}
-        zoomScale={config.zoomScale}
-        lockAxisX={config.lockAxisX}
-        lockAxisY={config.lockAxisY}
-      >
-        <img src="./democard.png" alt="image" width={150} />
-      </Tilt3D>
+      <EventLogger
+        eventLoggers={eventLoggers}
+        setEventLoggers={setEventLoggers}
+        log={log}
+      />
+      <div className="playground-zone">
+        <Tilt3D
+          maxTilt={config.maxTilt}
+          actionOffset={config.actionOffset}
+          resetTiltOnOutOfBounds={config.resetTiltOnOutOfBounds}
+          resetTiltOnHover={config.resetTiltOnHover}
+          zoomOnTilt={config.zoomOnTilt}
+          zoomScale={config.zoomScale}
+          lockAxisX={config.lockAxisX}
+          lockAxisY={config.lockAxisY}
+          onTiltStart={
+            eventLoggers.logOnTiltStart ? handleTiltStart : undefined
+          }
+          onTiltEnd={eventLoggers.logOnTiltEnd ? handleTiltEnd : undefined}
+          onTiltChange={
+            eventLoggers.logOnTiltChange ? handleTiltChange : undefined
+          }
+        >
+          <img src="./democard.png" alt="image" width={150} />
+        </Tilt3D>
+      </div>
     </>
   );
 }

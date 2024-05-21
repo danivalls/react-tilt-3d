@@ -17,7 +17,7 @@ describe('generateStyleText', () => {
     const zoomScale = 1.5;
     const result = generateStyleText(tilt, maxTilt, zoomOnTilt, zoomScale);
     expect(result).toBe(
-      'filter: brightness(1.667); transform: perspective(10cm) rotateX(20deg) rotateY(10deg) scale(1.5); transition: all 0.25s cubic-bezier(.32,.66,.72,1.58);'
+      'filter: brightness(1.67); transform: perspective(10cm) rotateX(20deg) rotateY(10deg) scale(1.5); transition: all 0.25s cubic-bezier(.32,.66,.72,1.58);'
     );
   });
 });

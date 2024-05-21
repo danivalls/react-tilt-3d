@@ -9,6 +9,12 @@ export type Config = {
   lockAxisY: boolean;
 };
 
+export type LoggersOptions = {
+  logOnTiltStart: boolean;
+  logOnTiltEnd: boolean;
+  logOnTiltChange: boolean;
+};
+
 export type ControlsProps = {
   config: Config;
   setConfig: (config: Partial<Config>) => void;

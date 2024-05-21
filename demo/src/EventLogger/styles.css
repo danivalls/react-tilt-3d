@@ -1,0 +1,35 @@
+@media (min-width: 768px) {
+  .event-logger-container {
+    display: flex !important;
+  }
+}
+
+.event-logger-container {
+  display: none;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  flex-direction: column;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  z-index: 1;
+  gap: 8px;
+
+  label {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.log {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: grid;
+  grid-template-columns: min-content min-content 1fr;
+  gap: 8px;
+  align-items: flex-start;
+  max-height: 250px;
+  overflow: auto;
+  font-family: 'Courier New', Courier, monospace;
+}
