@@ -23,10 +23,10 @@ export const calculateTiltOnAxis = (
   const absoluteCenter = absoluteCoordWithOffset + centerOfNode;
 
   const distanceFromCenter = position - absoluteCenter;
+  const tiltDegrees =
+    (distanceFromCenter / centerOfNode) * maxTilt * (axis === 'y' ? -1 : 1);
 
-  return (
-    (distanceFromCenter / centerOfNode) * maxTilt * (axis === 'y' ? -1 : 1)
-  );
+  return Math.round(tiltDegrees * 100) / 100;
 };
 
 export const getCoords = (elem: HTMLElement): Coords => {
@@ -52,24 +52,24 @@ const calculateTilt = (
   domNode: HTMLElement,
   options: CalculateTiltOptions
 ) => {
-  if (!cursorPos.x && !cursorPos.y) return { x: 0, y: 0 };
-
-  const isHovering = domNode.matches(':hover');
-  if (options.resetTiltOnHover && isHovering) return { x: 0, y: 0 };
+  if (
+    (!cursorPos.x && !cursorPos.y) ||
+    (options.resetTiltOnHover && domNode.matches(':hover'))
+  )
+    return { x: 0, y: 0 };
 
   const { maxTilt, offset, lockAxisX, lockAxisY } = options;
 
-  const buildAxisOptions = (axis: 'x' | 'y') => ({
+  const tiltX = calculateTiltOnAxis('x', cursorPos.x, domNode, {
     maxTilt,
     offset,
-    lockAxis: axis === 'x' ? lockAxisX : lockAxisY,
+    lockAxis: lockAxisX,
   });
-
-  const getTilt = (axis: 'x' | 'y') =>
-    calculateTiltOnAxis(axis, cursorPos[axis], domNode, buildAxisOptions(axis));
-
-  const tiltX = getTilt('x');
-  const tiltY = getTilt('y');
+  const tiltY = calculateTiltOnAxis('y', cursorPos.y, domNode, {
+    maxTilt,
+    offset,
+    lockAxis: lockAxisY,
+  });
 
   let limitedX: number;
   let limitedY: number;

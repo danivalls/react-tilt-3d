@@ -6,7 +6,7 @@ const generateStyleText = (
   zoomOnTilt: boolean = false,
   zoomScale: number = 1
 ) => {
-  const brightness = Math.round((tilt.y / maxTilt + 1) * 1000) / 1000;
+  const brightness = Math.round((tilt.y / maxTilt + 1) * 100) / 100;
   const scale = (tilt.y || tilt.x) && zoomOnTilt ? zoomScale : 1;
 
   const rotateX = `rotateX(${tilt.y}deg)`;
@@ -18,9 +18,11 @@ const generateStyleText = (
     transition: 'all 0.25s cubic-bezier(.32,.66,.72,1.58)',
   };
 
-  return Object.entries(style)
+  const styleText = Object.entries(style)
     .reduce((acc, [key, value]) => `${acc} ${key}: ${value};`, '')
     .trim();
+
+  return styleText;
 };
 
 export default generateStyleText;

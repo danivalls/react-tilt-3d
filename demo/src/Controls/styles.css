@@ -1,7 +1,4 @@
 .controls-container {
-  position: absolute;
-  top: 16px;
-  left: 16px;
   display: flex;
   flex-direction: column;
   color: white;
@@ -12,5 +9,13 @@
   label {
     display: flex;
     gap: 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  .controls-container {
+    position: absolute;
+    top: 16px;
+    left: 16px;
   }
 }
