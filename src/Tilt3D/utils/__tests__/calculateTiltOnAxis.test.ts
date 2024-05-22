@@ -13,25 +13,32 @@ describe('calculateTiltOnAxis', () => {
       ...options,
       lockAxis: true,
     });
-    expect(result).toBe(0);
+    expect(result.degrees).toBe(0);
   });
 
   it('should reach maximum tilt on offset limit', () => {
     const result = calculateTiltOnAxis('x', options.offset, domNode, options);
 
-    expect(result).toBe(options.maxTilt);
+    expect(result.degrees).toBe(options.maxTilt);
+  });
+
+  it('should return exceedsLimit if position is outside offset', () => {
+    const position = options.offset + 1;
+    const result = calculateTiltOnAxis('x', position, domNode, options);
+
+    expect(result.exceedsLimit).toBe(true);
   });
 
   it('should return a value between 0 and maxTilt if position is inside offset', () => {
     const position = options.offset - 1;
     const result = calculateTiltOnAxis('x', position, domNode, options);
 
-    expect(result).toBeLessThan(options.maxTilt);
+    expect(result.degrees).toBeLessThan(options.maxTilt);
   });
 
   it('should return 0 if cursor position is 0', () => {
     const result = calculateTiltOnAxis('x', 0, domNode, options);
 
-    expect(result).toBe(0);
+    expect(result.degrees).toBe(0);
   });
 });
