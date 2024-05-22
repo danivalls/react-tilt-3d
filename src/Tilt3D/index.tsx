@@ -6,8 +6,8 @@ import getCurrentTilt from './utils/getCurrentTilt';
 
 const Tilt3D = ({
   maxTilt = 25,
-  resetTiltOnOutOfBounds,
-  resetTiltOnHover,
+  resetTiltOnOutOfBounds = false,
+  resetTiltOnHover = false,
   actionOffset = 0,
   zoomOnTilt = false,
   zoomScale = 1.25,

@@ -6,6 +6,7 @@ const DEFAULT_OPTIONS = {
   lockAxisX: false,
   lockAxisY: false,
   resetTiltOnOutOfBounds: false,
+  resetTiltOnHover: false,
 };
 
 describe('calculateTilt', () => {

@@ -26,8 +26,8 @@ export type Props = {
 
 export type CalculateTiltOptions = {
   maxTilt: number;
-  resetTiltOnOutOfBounds?: boolean;
-  resetTiltOnHover?: boolean;
+  resetTiltOnOutOfBounds: boolean;
+  resetTiltOnHover: boolean;
   offset: number;
   lockAxisX: boolean;
   lockAxisY: boolean;

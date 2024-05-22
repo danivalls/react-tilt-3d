@@ -8,28 +8,40 @@ export const calculateTiltOnAxis = (
     lockAxis: boolean;
   }
 ) => {
-  if (options.lockAxis) return 0;
+  if (options.lockAxis) return { degrees: 0, exceedsLimit: false };
 
-  const { maxTilt, offset } = options;
-  const { top, left } = getCoords(domNode);
+  const { top, left } = getDistanceFromEdge(domNode);
+  const distanceFromEdge = axis === 'x' ? left : top;
+  const nodeOffset = axis === 'x' ? domNode.offsetWidth : domNode.offsetHeight;
 
-  const nodeSizeOnAxis = domNode[axis === 'x' ? 'offsetWidth' : 'offsetHeight'];
-  const absoluteCoord = axis === 'x' ? left : top;
-
-  const nodeSizeWithOffset = nodeSizeOnAxis + offset * 2;
-  const centerOfNode = nodeSizeWithOffset / 2;
-  const absoluteCoordWithOffset = absoluteCoord - offset;
-
-  const absoluteCenter = absoluteCoordWithOffset + centerOfNode;
-
+  const absoluteCenter = distanceFromEdge + nodeOffset / 2;
   const distanceFromCenter = position - absoluteCenter;
-  const tiltDegrees =
-    (distanceFromCenter / centerOfNode) * maxTilt * (axis === 'y' ? -1 : 1);
+  const distanceAtMaxTilt = nodeOffset / 2 + options.offset;
 
-  return Math.round(tiltDegrees * 100) / 100;
+  const tilt =
+    (distanceFromCenter / distanceAtMaxTilt) *
+    options.maxTilt *
+    (axis === 'y' ? -1 : 1);
+
+  const exceedsLimit =
+    Math.abs(distanceFromCenter) > Math.abs(distanceAtMaxTilt);
+
+  if (exceedsLimit) {
+    const tiltDirection = tilt < 0 ? -1 : 1;
+
+    return {
+      degrees: tiltDirection * options.maxTilt,
+      exceedsLimit,
+    };
+  }
+
+  return {
+    degrees: Math.round(tilt * 100) / 100,
+    exceedsLimit,
+  };
 };
 
-export const getCoords = (elem: HTMLElement): Coords => {
+export const getDistanceFromEdge = (elem: HTMLElement): Coords => {
   const box = elem.getBoundingClientRect();
 
   const body = document.body;
@@ -71,24 +83,15 @@ const calculateTilt = (
     lockAxis: lockAxisY,
   });
 
-  let limitedX: number;
-  let limitedY: number;
+  const isOutOfBounds = tiltX.exceedsLimit || tiltY.exceedsLimit;
 
-  if (options.resetTiltOnOutOfBounds) {
-    const isOutOfBoundsX = Math.abs(tiltX) > maxTilt;
-    const isOutOfBoundsY = Math.abs(tiltY) > maxTilt;
-    const isOutOfBounds = isOutOfBoundsX || isOutOfBoundsY;
-
-    limitedX = isOutOfBounds ? 0 : tiltX;
-    limitedY = isOutOfBounds ? 0 : tiltY;
-  } else {
-    limitedX = Math.min(Math.max(tiltX, -maxTilt), maxTilt);
-    limitedY = Math.min(Math.max(tiltY, -maxTilt), maxTilt);
+  if (isOutOfBounds && options.resetTiltOnOutOfBounds) {
+    return { x: 0, y: 0 };
   }
 
   return {
-    x: limitedX,
-    y: limitedY,
+    x: tiltX.degrees,
+    y: tiltY.degrees,
   };
 };
 
