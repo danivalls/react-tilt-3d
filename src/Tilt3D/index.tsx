@@ -13,6 +13,7 @@ const Tilt3D = ({
   zoomScale = 1.25,
   lockAxisX = false,
   lockAxisY = false,
+  transition = 'ease-out',
   onTiltChange,
   onTiltStart,
   onTiltEnd,
@@ -57,7 +58,8 @@ const Tilt3D = ({
           tilt,
           maxTilt,
           zoomOnTilt,
-          zoomScale
+          zoomScale,
+          transition
         );
 
         const isSameTilt = currentTilt.x === tilt.x && currentTilt.y === tilt.y;
@@ -91,6 +93,7 @@ const Tilt3D = ({
       document.removeEventListener('mouseleave', resetTilt);
     };
   }, [
+    transition,
     onTiltChange,
     onTiltStart,
     onTiltEnd,
