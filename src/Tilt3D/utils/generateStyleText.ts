@@ -1,10 +1,13 @@
-import { Tilt } from '../types';
+import { CubicBezier, Tilt, TransitionTimingFunction } from '../types';
+
+export const BOUNCE_TRANISTION: CubicBezier = 'cubic-bezier(.32,.66,.72,1.58)';
 
 const generateStyleText = (
   tilt: Tilt,
   maxTilt: number,
   zoomOnTilt: boolean = false,
-  zoomScale: number = 1
+  zoomScale: number = 1,
+  transition: TransitionTimingFunction = 'ease-out'
 ) => {
   const brightness = Math.round((tilt.y / maxTilt + 1) * 100) / 100;
   const scale = (tilt.y || tilt.x) && zoomOnTilt ? zoomScale : 1;
@@ -12,10 +15,13 @@ const generateStyleText = (
   const rotateX = `rotateX(${tilt.y}deg)`;
   const rotateY = `rotateY(${tilt.x}deg)`;
 
+  const transitionAnimation: TransitionTimingFunction =
+    transition === 'bounce' ? BOUNCE_TRANISTION : transition;
+
   const style = {
     filter: `brightness(${brightness})`,
     transform: `perspective(10cm) ${rotateX} ${rotateY} scale(${scale})`,
-    transition: 'all 0.25s cubic-bezier(.32,.66,.72,1.58)',
+    transition: `all 0.25s ${transitionAnimation}`,
   };
 
   const styleText = Object.entries(style)
