@@ -26,8 +26,8 @@ const Tilt3D = ({
   const [isGyroAvailable, setIsGyroAvailable] = useState(false);
 
   useEffect(() => {
-    const registerIsGyroAvailable = (e: DeviceOrientationEvent) => {
-      setIsGyroAvailable(Boolean(e.beta && e.gamma));
+    const registerIsGyroAvailable = () => {
+      setIsGyroAvailable(true);
       removeEventListener('deviceorientation', registerIsGyroAvailable);
     };
 
