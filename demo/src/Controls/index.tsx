@@ -1,7 +1,7 @@
 import { ControlsProps } from './Controls.types';
 import './styles.css';
 
-const Controls = ({ config, setConfig }: ControlsProps) => {
+const Controls = ({ config, setConfig, isGyroAvailable }: ControlsProps) => {
   const {
     resetTiltOnOutOfBounds,
     resetTiltOnHover,
@@ -9,6 +9,7 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
     maxTilt,
     actionOffset,
     zoomScale,
+    enableGyro,
   } = config;
 
   return (
@@ -20,6 +21,7 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
           onChange={({ target }) =>
             setConfig({ resetTiltOnOutOfBounds: target.checked })
           }
+          disabled={enableGyro && isGyroAvailable}
         />
         Reset tilt on out of bounds
       </label>
@@ -30,6 +32,7 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
           onChange={({ target }) =>
             setConfig({ resetTiltOnHover: target.checked })
           }
+          disabled={enableGyro && isGyroAvailable}
         />
         Reset tilt on hover
       </label>
@@ -38,6 +41,7 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
           type="checkbox"
           checked={zoomOnTilt}
           onChange={({ target }) => setConfig({ zoomOnTilt: target.checked })}
+          disabled={enableGyro && isGyroAvailable}
         />
         Zoom on tilt
       </label>
@@ -47,6 +51,7 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
           type="checkbox"
           checked={config.lockAxisX}
           onChange={({ target }) => setConfig({ lockAxisX: target.checked })}
+          disabled={enableGyro && isGyroAvailable}
         />
       </label>
       <label>
@@ -55,6 +60,7 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
           type="checkbox"
           checked={config.lockAxisY}
           onChange={({ target }) => setConfig({ lockAxisY: target.checked })}
+          disabled={enableGyro && isGyroAvailable}
         />
       </label>
       <label>
@@ -77,12 +83,14 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
           onChange={({ target }) =>
             setConfig({ actionOffset: Number(target.value) })
           }
+          disabled={enableGyro && isGyroAvailable}
         />
       </label>
+
       <label>
         Zoom scale: <code>{zoomScale}</code>
         <input
-          disabled={!zoomOnTilt}
+          disabled={!zoomOnTilt || (enableGyro && isGyroAvailable)}
           type="range"
           min={1}
           max={2}
@@ -91,6 +99,15 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
           onChange={({ target }) =>
             setConfig({ zoomScale: Number(target.value) })
           }
+        />
+      </label>
+      <label>
+        Enable Gyro
+        <input
+          type="checkbox"
+          disabled={!isGyroAvailable}
+          checked={enableGyro}
+          onChange={({ target }) => setConfig({ enableGyro: target.checked })}
         />
       </label>
     </div>

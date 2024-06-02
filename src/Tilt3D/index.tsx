@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CursorPos, Props } from './types';
 import calculateTilt from './utils/calculateTilt';
 import generateStyleText from './utils/generateStyleText';
 import getCurrentTilt from './utils/getCurrentTilt';
+import calculateTiltFromGyro from './utils/calculateTiltFromGyro';
 
 const Tilt3D = ({
   maxTilt = 25,
@@ -14,6 +15,7 @@ const Tilt3D = ({
   lockAxisX = false,
   lockAxisY = false,
   transition = 'ease-out',
+  enableGyro = false,
   onTiltChange,
   onTiltStart,
   onTiltEnd,
@@ -21,6 +23,22 @@ const Tilt3D = ({
   children,
 }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isGyroAvailable, setIsGyroAvailable] = useState(false);
+
+  useEffect(() => {
+    const registerIsGyroAvailable = (e: DeviceOrientationEvent) => {
+      setIsGyroAvailable(Boolean(e.beta && e.gamma));
+      removeEventListener('deviceorientation', registerIsGyroAvailable);
+    };
+
+    if (enableGyro && !isGyroAvailable) {
+      addEventListener('deviceorientation', registerIsGyroAvailable);
+    }
+
+    return () => {
+      removeEventListener('deviceorientation', registerIsGyroAvailable);
+    };
+  }, [enableGyro, isGyroAvailable]);
 
   useEffect(() => {
     const resetTilt = () => {
@@ -31,6 +49,24 @@ const Tilt3D = ({
           onTiltEnd?.();
         }
         ref.current.style.cssText = generateStyleText({ x: 0, y: 0 }, maxTilt);
+      }
+    };
+
+    const applyTiltFromGyro = (e: DeviceOrientationEvent) => {
+      if (ref.current) {
+        const tilt = calculateTiltFromGyro(e, maxTilt);
+
+        const newStyle = generateStyleText(
+          tilt,
+          maxTilt,
+          zoomOnTilt,
+          zoomScale,
+          transition,
+          true
+        );
+
+        ref.current.style.cssText = newStyle;
+        onTiltChange?.(tilt);
       }
     };
 
@@ -81,18 +117,26 @@ const Tilt3D = ({
       }
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('touchmove', handleTouchMove);
-    document.addEventListener('touchend', resetTilt);
-    document.addEventListener('mouseleave', resetTilt);
+    if (enableGyro && isGyroAvailable) {
+      window.addEventListener('deviceorientation', applyTiltFromGyro);
+    } else {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('touchmove', handleTouchMove);
+      document.addEventListener('touchend', resetTilt);
+      document.addEventListener('mouseleave', resetTilt);
+    }
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', resetTilt);
       document.removeEventListener('mouseleave', resetTilt);
+
+      window.removeEventListener('deviceorientation', applyTiltFromGyro);
     };
   }, [
+    isGyroAvailable,
+    enableGyro,
     transition,
     onTiltChange,
     onTiltStart,
