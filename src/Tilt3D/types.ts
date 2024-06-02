@@ -47,6 +47,7 @@ export type Props = {
   lockAxisX?: boolean;
   lockAxisY?: boolean;
   transition?: TransitionTimingFunction;
+  enableGyro?: boolean;
   onTiltChange?: (tilt: Tilt) => void;
   onTiltStart?: () => void;
   onTiltEnd?: () => void;

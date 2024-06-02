@@ -7,6 +7,7 @@ export type Config = {
   zoomScale: number;
   lockAxisX: boolean;
   lockAxisY: boolean;
+  enableGyro: boolean;
 };
 
 export type LoggersOptions = {
@@ -18,4 +19,5 @@ export type LoggersOptions = {
 export type ControlsProps = {
   config: Config;
   setConfig: (config: Partial<Config>) => void;
+  isGyroAvailable: boolean;
 };
