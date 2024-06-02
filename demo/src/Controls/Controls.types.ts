@@ -19,5 +19,4 @@ export type LoggersOptions = {
 export type ControlsProps = {
   config: Config;
   setConfig: (config: Partial<Config>) => void;
-  isGyroAvailable: boolean;
 };

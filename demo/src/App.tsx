@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useReducer, useState } from 'react';
 import { Config, LoggersOptions } from './Controls/Controls.types';
 import Controls from './Controls';
 import { Tilt3D } from 'react-tilt-3d';
@@ -41,7 +41,6 @@ function App() {
   );
 
   const [log, setLog] = useState<EventLog[]>([]);
-  const [isGyroAvailable, setIsGyroAvailable] = useState(false);
 
   const handleTiltStart = () => {
     if (eventLoggers.logOnTiltStart) {
@@ -70,28 +69,9 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    const registerIsGyroAvailable = () => {
-      setIsGyroAvailable(true);
-      removeEventListener('deviceorientation', registerIsGyroAvailable);
-    };
-
-    if (!isGyroAvailable) {
-      addEventListener('deviceorientation', registerIsGyroAvailable);
-    }
-
-    return () => {
-      removeEventListener('deviceorientation', registerIsGyroAvailable);
-    };
-  }, [isGyroAvailable]);
-
   return (
     <>
-      <Controls
-        config={config}
-        setConfig={setConfig}
-        isGyroAvailable={isGyroAvailable}
-      />
+      <Controls config={config} setConfig={setConfig} />
       <EventLogger
         eventLoggers={eventLoggers}
         setEventLoggers={setEventLoggers}

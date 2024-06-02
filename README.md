@@ -22,6 +22,7 @@
   - Customize the transition timing function
 - Events onTiltStart, onTiltEnd, and onTiltChange
 - Compatible with touch devices
+- Can use device gyroscope to apply tilting (if device has gyroscope)
 - Apply the tilt effect to anything used as children.
 - Applies a lighting effect to reinforce the 3d-effect.
 - Strongly typed
@@ -69,3 +70,11 @@ Several customizations can be made via props:
 | `onTiltEnd`              | `() => void`                       | Callback to be executed every time the tilt ends and returns to 0                                                                                                                                                                                                                                   | `false`  |            |
 | `className`              | `string`                           | classname to apply to the wrapper                                                                                                                                                                                                                                                                   | `false`  |            |
 | `children`               | `ReactNode`                        | The content to apply the tilt.                                                                                                                                                                                                                                                                      | `false`  |            |
+
+### About gyro mode
+
+By passing the prop `enableGyro` the tilting effect can be applied by reading directly from the device sensors. While this can work out-of-the box for some devices, others (iOS) may require to explicitly request for permissions.
+
+You can either do it manually (request permissions for `DeviceOrientationEvent`) or you can use the function `requestGyroPermission` exported by this library.
+
+`import { requestGyroPermission } from 'react-tilt-3d`
