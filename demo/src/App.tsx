@@ -71,8 +71,8 @@ function App() {
   };
 
   useEffect(() => {
-    const registerIsGyroAvailable = (e: DeviceOrientationEvent) => {
-      setIsGyroAvailable(Boolean(e.beta && e.gamma));
+    const registerIsGyroAvailable = () => {
+      setIsGyroAvailable(true);
       removeEventListener('deviceorientation', registerIsGyroAvailable);
     };
 
