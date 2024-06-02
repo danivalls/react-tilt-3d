@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { ControlsProps } from './Controls.types';
+import { requestGyroPermission } from 'react-tilt-3d';
 import './styles.css';
 
-const Controls = ({ config, setConfig, isGyroAvailable }: ControlsProps) => {
+const Controls = ({ config, setConfig }: ControlsProps) => {
   const {
     resetTiltOnOutOfBounds,
     resetTiltOnHover,
@@ -11,6 +13,29 @@ const Controls = ({ config, setConfig, isGyroAvailable }: ControlsProps) => {
     zoomScale,
     enableGyro,
   } = config;
+  const [isGyroAvailable, setGyroAvailable] = useState<boolean>();
+
+  const request = () => {
+    requestGyroPermission().then((permission) => {
+      if (permission === 'granted') {
+        setGyroAvailable(true);
+      } else {
+        setGyroAvailable(false);
+      }
+    });
+  };
+
+  useEffect(() => {
+    const checkIfAlreadyGranted = () => {
+      setGyroAvailable(true);
+      window.removeEventListener('deviceorientation', checkIfAlreadyGranted);
+    };
+    window.addEventListener('deviceorientation', checkIfAlreadyGranted);
+
+    return () => {
+      window.removeEventListener('deviceorientation', checkIfAlreadyGranted);
+    };
+  }, []);
 
   return (
     <div className="controls-container">
@@ -21,7 +46,7 @@ const Controls = ({ config, setConfig, isGyroAvailable }: ControlsProps) => {
           onChange={({ target }) =>
             setConfig({ resetTiltOnOutOfBounds: target.checked })
           }
-          disabled={enableGyro && isGyroAvailable}
+          disabled={enableGyro}
         />
         Reset tilt on out of bounds
       </label>
@@ -32,7 +57,7 @@ const Controls = ({ config, setConfig, isGyroAvailable }: ControlsProps) => {
           onChange={({ target }) =>
             setConfig({ resetTiltOnHover: target.checked })
           }
-          disabled={enableGyro && isGyroAvailable}
+          disabled={enableGyro}
         />
         Reset tilt on hover
       </label>
@@ -41,7 +66,7 @@ const Controls = ({ config, setConfig, isGyroAvailable }: ControlsProps) => {
           type="checkbox"
           checked={zoomOnTilt}
           onChange={({ target }) => setConfig({ zoomOnTilt: target.checked })}
-          disabled={enableGyro && isGyroAvailable}
+          disabled={enableGyro}
         />
         Zoom on tilt
       </label>
@@ -51,7 +76,7 @@ const Controls = ({ config, setConfig, isGyroAvailable }: ControlsProps) => {
           type="checkbox"
           checked={config.lockAxisX}
           onChange={({ target }) => setConfig({ lockAxisX: target.checked })}
-          disabled={enableGyro && isGyroAvailable}
+          disabled={enableGyro}
         />
       </label>
       <label>
@@ -60,7 +85,7 @@ const Controls = ({ config, setConfig, isGyroAvailable }: ControlsProps) => {
           type="checkbox"
           checked={config.lockAxisY}
           onChange={({ target }) => setConfig({ lockAxisY: target.checked })}
-          disabled={enableGyro && isGyroAvailable}
+          disabled={enableGyro}
         />
       </label>
       <label>
@@ -83,14 +108,14 @@ const Controls = ({ config, setConfig, isGyroAvailable }: ControlsProps) => {
           onChange={({ target }) =>
             setConfig({ actionOffset: Number(target.value) })
           }
-          disabled={enableGyro && isGyroAvailable}
+          disabled={enableGyro}
         />
       </label>
 
       <label>
         Zoom scale: <code>{zoomScale}</code>
         <input
-          disabled={!zoomOnTilt || (enableGyro && isGyroAvailable)}
+          disabled={!zoomOnTilt || enableGyro}
           type="range"
           min={1}
           max={2}
@@ -103,12 +128,19 @@ const Controls = ({ config, setConfig, isGyroAvailable }: ControlsProps) => {
       </label>
       <label>
         Enable Gyro
-        <input
-          type="checkbox"
-          disabled={!isGyroAvailable}
-          checked={enableGyro}
-          onChange={({ target }) => setConfig({ enableGyro: target.checked })}
-        />
+        {isGyroAvailable ? (
+          <input
+            type="checkbox"
+            checked={enableGyro}
+            onChange={({ target }) => setConfig({ enableGyro: target.checked })}
+          />
+        ) : (
+          <button onClick={request}>
+            {isGyroAvailable === false
+              ? 'Gyro not available'
+              : 'Request permission'}
+          </button>
+        )}
       </label>
     </div>
   );
