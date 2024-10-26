@@ -12,6 +12,7 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
     actionOffset,
     zoomScale,
     enableGyro,
+    enableLighting,
   } = config;
   const [isGyroAvailable, setGyroAvailable] = useState<boolean>();
 
@@ -141,6 +142,16 @@ const Controls = ({ config, setConfig }: ControlsProps) => {
               : 'Request permission'}
           </button>
         )}
+      </label>
+      <label>
+        Enable Lighting
+        <input
+          type="checkbox"
+          checked={enableLighting}
+          onChange={({ target }) =>
+            setConfig({ enableLighting: target.checked })
+          }
+        />
       </label>
     </div>
   );

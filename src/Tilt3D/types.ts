@@ -51,6 +51,7 @@ export type Props = {
   onTiltChange?: (tilt: Tilt) => void;
   onTiltStart?: () => void;
   onTiltEnd?: () => void;
+  enableLighting?: boolean;
 };
 
 export type CalculateTiltOptions = {

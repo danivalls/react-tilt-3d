@@ -16,6 +16,7 @@ const Tilt3D = ({
   lockAxisY = false,
   transition = 'ease-out',
   enableGyro = false,
+  enableLighting = true,
   onTiltChange,
   onTiltStart,
   onTiltEnd,
@@ -48,7 +49,11 @@ const Tilt3D = ({
         if (currentTilt.isTilted) {
           onTiltEnd?.();
         }
-        ref.current.style.cssText = generateStyleText({ x: 0, y: 0 }, maxTilt);
+        ref.current.style.cssText = generateStyleText({
+          tilt: { x: 0, y: 0 },
+          maxTilt,
+          enableLighting,
+        });
       }
     };
 
@@ -56,14 +61,15 @@ const Tilt3D = ({
       if (ref.current) {
         const tilt = calculateTiltFromGyro(e, maxTilt);
 
-        const newStyle = generateStyleText(
+        const newStyle = generateStyleText({
           tilt,
           maxTilt,
           zoomOnTilt,
           zoomScale,
           transition,
-          true
-        );
+          gyroMode: true,
+          enableLighting,
+        });
 
         ref.current.style.cssText = newStyle;
         onTiltChange?.(tilt);
@@ -90,13 +96,14 @@ const Tilt3D = ({
         if (tiltStarts) onTiltStart?.();
         if (tiltEnds) onTiltEnd?.();
 
-        const newStyle = generateStyleText(
+        const newStyle = generateStyleText({
           tilt,
           maxTilt,
           zoomOnTilt,
           zoomScale,
-          transition
-        );
+          transition,
+          enableLighting,
+        });
 
         const isSameTilt = currentTilt.x === tilt.x && currentTilt.y === tilt.y;
 
@@ -149,6 +156,7 @@ const Tilt3D = ({
     actionOffset,
     zoomOnTilt,
     zoomScale,
+    enableLighting,
   ]);
 
   return (
