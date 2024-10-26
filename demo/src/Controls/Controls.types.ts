@@ -8,6 +8,7 @@ export type Config = {
   lockAxisX: boolean;
   lockAxisY: boolean;
   enableGyro: boolean;
+  enableLighting: boolean;
 };
 
 export type LoggersOptions = {

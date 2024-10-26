@@ -15,6 +15,7 @@ const INITIAL_CONFIG: Config = {
   lockAxisX: false,
   lockAxisY: false,
   enableGyro: false,
+  enableLighting: true,
 };
 
 const INITIAL_LOGGERS: LoggersOptions = {
@@ -95,6 +96,7 @@ function App() {
             eventLoggers.logOnTiltChange ? handleTiltChange : undefined
           }
           enableGyro={config.enableGyro}
+          enableLighting={config.enableLighting}
         >
           <img src="./democard.png" alt="image" width={150} />
         </Tilt3D>
